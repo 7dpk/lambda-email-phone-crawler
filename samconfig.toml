@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "prince-project"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1g46vngvq2xri"
+s3_prefix = "prince-project"
+region = "ap-south-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"

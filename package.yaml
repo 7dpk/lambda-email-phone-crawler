@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'web-crawler
+
+  Sample SAM Template for web-crawler
+
+  '
+Globals:
+  Function:
+    Timeout: 25
+Resources:
+  WebCrawlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs14.x
+      Handler: index.handler
+      CodeUri: s3://prince-aws-s3-lambda/d98a36a4ef51308293ee1142eb2d235d
+      Environment:
+        Variables:
+          S3BucketName:
+            Ref: S3Bucket
+      Policies:
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - s3:PutObject
+          - s3:GetObject
+          Resource:
+            Fn::Sub: arn:aws:s3:::${S3Bucket}/*
+    Metadata:
+      SamResourceId: WebCrawlerFunction
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Metadata:
+      SamResourceId: S3Bucket

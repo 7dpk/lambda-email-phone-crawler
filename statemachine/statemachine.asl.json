@@ -1,0 +1,30 @@
+{
+  "Comment": "A simple minimal example of the States language",
+  "StartAt": "WebCrawler",
+  "States": {
+    "WebCrawler": {
+      "Type": "Task",
+      "Resource": "${WebCrawlerFunctionArn}",
+      "Next": "Fail or Succeed?"
+    },
+    "Fail or Succeed?": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.statusCode",
+          "NumericEquals": 200,
+          "Next": "EmailPhoneExtrator"
+        }
+      ],
+      "Default": "FailState"
+    },
+    "EmailPhoneExtrator": {
+      "Type": "Task",
+      "Resource": "${EmailPhoneExtractorArn}",
+      "End": true
+    },
+    "FailState": {
+      "Type": "Fail"
+    }
+  }
+}
